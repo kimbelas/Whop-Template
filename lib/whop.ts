@@ -5,6 +5,8 @@ import type {
   CheckAccessResponse,
   WhopResourceId,
   AccessLevel,
+  AuthorizedUsersResponse,
+  AuthorizedUserRole,
 } from "@/types/whop";
 
 /**
@@ -153,5 +155,79 @@ export async function requireAdmin(
 
   if (!isAdmin) {
     throw new Error("Admin access required");
+  }
+}
+
+/**
+ * Fetch all authorized users for a company
+ * GET /authorized_users?company_id={companyId}
+ * Requires permissions: company:authorized_user:read and member:email:read
+ */
+export async function getAuthorizedUsers(
+  companyId: string,
+  options?: {
+    userId?: string;
+    role?: AuthorizedUserRole;
+    first?: number;
+    last?: number;
+    after?: string;
+    before?: string;
+  }
+): Promise<AuthorizedUsersResponse | null> {
+  try {
+    // Build query parameters
+    const params = new URLSearchParams({ company_id: companyId });
+
+    if (options?.userId) params.append("user_id", options.userId);
+    if (options?.role) params.append("role", options.role);
+    if (options?.first) params.append("first", options.first.toString());
+    if (options?.last) params.append("last", options.last.toString());
+    if (options?.after) params.append("after", options.after);
+    if (options?.before) params.append("before", options.before);
+
+    const response = await fetch(
+      `${whopConfig.baseUrl}/authorized_users?${params.toString()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${whopConfig.apiKey}`,
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Failed to fetch authorized users:", response.statusText);
+      const errorText = await response.text();
+      console.error("Error details:", errorText);
+      return null;
+    }
+
+    const data: AuthorizedUsersResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching authorized users:", error);
+    return null;
+  }
+}
+
+/**
+ * Fetch all authorized users (handles pagination automatically)
+ */
+export async function getAllAuthorizedUsers(
+  companyId: string,
+  role?: AuthorizedUserRole
+): Promise<AuthorizedUsersResponse | null> {
+  try {
+    // Fetch first page with a large limit to get all users
+    const result = await getAuthorizedUsers(companyId, {
+      role,
+      first: 100, // Adjust based on expected user count
+    });
+
+    return result;
+  } catch (error) {
+    console.error("Error fetching all authorized users:", error);
+    return null;
   }
 }

@@ -1,6 +1,7 @@
-import { getWhopUser } from "@/lib/whop";
+import { getWhopUser, getAllAuthorizedUsers } from "@/lib/whop";
 import { getAllUsers, syncUserToDatabase } from "@/lib/users";
 import { UsersList } from "@/components/UsersList";
+import { AuthorizedUsersList } from "@/components/AuthorizedUsersList";
 
 interface DashboardPageProps {
   params: Promise<{
@@ -19,6 +20,10 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
 
   // Fetch all users from database
   const allUsers = await getAllUsers();
+
+  // Fetch authorized users from Whop API
+  const authorizedUsersResponse = await getAllAuthorizedUsers(companyId);
+  const authorizedUsers = authorizedUsersResponse?.data || [];
 
   return (
     <div className="min-h-screen p-8">
@@ -109,7 +114,12 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
           </p>
         </div>
 
-        {/* All Users Section */}
+        {/* Authorized Users Section - From Whop API */}
+        <div className="mt-8">
+          <AuthorizedUsersList users={authorizedUsers} />
+        </div>
+
+        {/* All Users Section - From Supabase Database */}
         <div className="mt-8">
           <UsersList users={allUsers} />
         </div>

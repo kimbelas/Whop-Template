@@ -52,3 +52,66 @@ export type WhopResourceId =
   | `biz_${string}` // Company
   | `prod_${string}` // Product
   | `exp_${string}`; // Experience
+
+/**
+ * Authorized user roles in a company
+ * From /authorized_users endpoint
+ */
+export type AuthorizedUserRole =
+  | "owner"
+  | "admin"
+  | "sales_manager"
+  | "moderator"
+  | "app_manager"
+  | "support"
+  | "manager";
+
+/**
+ * User details in authorized users list
+ */
+export interface AuthorizedUserDetails {
+  /** Internal user ID */
+  id: string;
+  /** User's full name */
+  name: string | null;
+  /** Whop account username */
+  username: string;
+  /** User's email address */
+  email: string;
+}
+
+/**
+ * Authorized user object from /authorized_users endpoint
+ */
+export interface AuthorizedUser {
+  /** Authorized user identifier */
+  id: string;
+  /** User's role within the company */
+  role: AuthorizedUserRole;
+  /** Nested user details */
+  user: AuthorizedUserDetails;
+}
+
+/**
+ * Page info for pagination
+ */
+export interface PageInfo {
+  /** Cursor for next page */
+  end_cursor: string | null;
+  /** Cursor for previous page */
+  start_cursor: string | null;
+  /** Whether there are more results after */
+  has_next_page: boolean;
+  /** Whether there are more results before */
+  has_previous_page: boolean;
+}
+
+/**
+ * Response from /authorized_users endpoint
+ */
+export interface AuthorizedUsersResponse {
+  /** List of authorized users */
+  data: AuthorizedUser[];
+  /** Pagination metadata */
+  page_info: PageInfo;
+}
