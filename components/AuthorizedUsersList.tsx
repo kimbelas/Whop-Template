@@ -1,4 +1,5 @@
 import type { AuthorizedUser, AuthorizedUserRole } from "@/types/whop";
+import { Avatar } from "./Avatar";
 
 interface AuthorizedUsersListProps {
   users: AuthorizedUser[];
@@ -109,9 +110,11 @@ export function AuthorizedUsersList({ users }: AuthorizedUsersListProps) {
               >
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold">
-                      {authUser.user.username.charAt(0).toUpperCase()}
-                    </div>
+                    <Avatar
+                      username={authUser.user.username}
+                      name={authUser.user.name}
+                      size="md"
+                    />
                     <div>
                       <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         {authUser.user.name || authUser.user.username}

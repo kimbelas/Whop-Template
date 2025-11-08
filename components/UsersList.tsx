@@ -1,4 +1,5 @@
 import type { DatabaseUser } from "@/lib/users";
+import { Avatar } from "./Avatar";
 
 interface UsersListProps {
   users: DatabaseUser[];
@@ -52,17 +53,12 @@ export function UsersList({ users }: UsersListProps) {
               >
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
-                    {user.profile_picture_url ? (
-                      <img
-                        src={user.profile_picture_url}
-                        alt={user.username}
-                        className="w-10 h-10 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold">
-                        {user.username.charAt(0).toUpperCase()}
-                      </div>
-                    )}
+                    <Avatar
+                      profilePictureUrl={user.profile_picture_url}
+                      username={user.username}
+                      name={user.name}
+                      size="md"
+                    />
                     <div>
                       <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         {user.name || user.username}

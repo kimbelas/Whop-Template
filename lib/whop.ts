@@ -36,7 +36,6 @@ export async function getWhopUserId() {
 
     return userId;
   } catch (error) {
-    console.error("Error validating Whop token:", error);
     return null;
   }
 }
@@ -59,14 +58,12 @@ export async function getWhopUser(userId?: string): Promise<WhopUser | null> {
     });
 
     if (!response.ok) {
-      console.error("Failed to fetch user:", response.statusText);
       return null;
     }
 
     const user: WhopUser = await response.json();
     return user;
   } catch (error) {
-    console.error("Error fetching Whop user:", error);
     return null;
   }
 }
@@ -97,14 +94,12 @@ export async function checkUserAccess(
     );
 
     if (!response.ok) {
-      console.error("Failed to check access:", response.statusText);
       return { has_access: false, access_level: "no_access" };
     }
 
     const accessData: CheckAccessResponse = await response.json();
     return accessData;
   } catch (error) {
-    console.error("Error checking Whop access:", error);
     return { has_access: false, access_level: "no_access" };
   }
 }
@@ -197,16 +192,12 @@ export async function getAuthorizedUsers(
     );
 
     if (!response.ok) {
-      console.error("Failed to fetch authorized users:", response.statusText);
-      const errorText = await response.text();
-      console.error("Error details:", errorText);
       return null;
     }
 
     const data: AuthorizedUsersResponse = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching authorized users:", error);
     return null;
   }
 }
@@ -227,7 +218,6 @@ export async function getAllAuthorizedUsers(
 
     return result;
   } catch (error) {
-    console.error("Error fetching all authorized users:", error);
     return null;
   }
 }

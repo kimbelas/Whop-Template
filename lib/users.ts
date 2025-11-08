@@ -1,4 +1,5 @@
 import { getSupabaseClient } from "./supabase";
+import { generateAvatarUrl } from "./avatar";
 import type { WhopUser } from "@/types/whop";
 
 /**
@@ -25,12 +26,16 @@ export async function syncUserToDatabase(
   try {
     const supabase = getSupabaseClient();
 
+    // Generate avatar URL if no profile picture exists
+    const avatarUrl =
+      whopUser.profile_picture?.url || generateAvatarUrl(whopUser.username);
+
     const userData = {
       id: whopUser.id,
       username: whopUser.username,
       name: whopUser.name,
       bio: whopUser.bio,
-      profile_picture_url: whopUser.profile_picture?.url || null,
+      profile_picture_url: avatarUrl,
       last_login_at: new Date().toISOString(),
     };
 
@@ -44,13 +49,11 @@ export async function syncUserToDatabase(
       .single();
 
     if (error) {
-      console.error("Error syncing user to database:", error);
       return null;
     }
 
     return data;
   } catch (error) {
-    console.error("Error in syncUserToDatabase:", error);
     return null;
   }
 }
@@ -68,13 +71,11 @@ export async function getAllUsers(): Promise<DatabaseUser[]> {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Error fetching users:", error);
       return [];
     }
 
     return data || [];
   } catch (error) {
-    console.error("Error in getAllUsers:", error);
     return [];
   }
 }
@@ -95,13 +96,11 @@ export async function getUserById(
       .single();
 
     if (error) {
-      console.error("Error fetching user:", error);
       return null;
     }
 
     return data;
   } catch (error) {
-    console.error("Error in getUserById:", error);
     return null;
   }
 }
@@ -118,13 +117,11 @@ export async function getUserCount(): Promise<number> {
       .select("*", { count: "exact", head: true });
 
     if (error) {
-      console.error("Error counting users:", error);
       return 0;
     }
 
     return count || 0;
   } catch (error) {
-    console.error("Error in getUserCount:", error);
     return 0;
   }
 }
@@ -139,13 +136,11 @@ export async function deleteUser(userId: string): Promise<boolean> {
     const { error } = await supabase.from("users").delete().eq("id", userId);
 
     if (error) {
-      console.error("Error deleting user:", error);
       return false;
     }
 
     return true;
   } catch (error) {
-    console.error("Error in deleteUser:", error);
     return false;
   }
 }

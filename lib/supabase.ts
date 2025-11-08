@@ -24,11 +24,5 @@ export function isSupabaseConfigured(): boolean {
  * Get Supabase client with error handling
  */
 export function getSupabaseClient() {
-  if (!isSupabaseConfigured()) {
-    console.warn(
-      "Supabase is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local file."
-    );
-  }
-
   return supabase;
 }
