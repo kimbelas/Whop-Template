@@ -1,4 +1,6 @@
 import { getWhopUser } from "@/lib/whop";
+import { getAllUsers, syncUserToDatabase } from "@/lib/users";
+import { UsersList } from "@/components/UsersList";
 
 interface DashboardPageProps {
   params: Promise<{
@@ -9,6 +11,14 @@ interface DashboardPageProps {
 export default async function DashboardPage({ params }: DashboardPageProps) {
   const { companyId } = await params;
   const user = await getWhopUser();
+
+  // Sync current user to database
+  if (user) {
+    await syncUserToDatabase(user);
+  }
+
+  // Fetch all users from database
+  const allUsers = await getAllUsers();
 
   return (
     <div className="min-h-screen p-8">
@@ -97,6 +107,11 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
             This is your admin dashboard view. Add your custom features and
             functionality here.
           </p>
+        </div>
+
+        {/* All Users Section */}
+        <div className="mt-8">
+          <UsersList users={allUsers} />
         </div>
       </div>
     </div>
