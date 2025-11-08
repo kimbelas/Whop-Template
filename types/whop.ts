@@ -3,8 +3,15 @@
  * Based on: https://docs.whop.com/api-reference
  */
 
+// ============================================================================
+// 🔒 CORE TYPES - DO NOT REMOVE
+// These types are required for Whop authentication and access control
+// ============================================================================
+
 /**
  * Whop User model from /users/{id} endpoint
+ *
+ * 🔒 CORE - Required for authentication
  */
 export interface WhopUser {
   /** User identifier (format: user_xxx) */
@@ -27,11 +34,15 @@ export interface WhopUser {
 /**
  * Access levels for Whop resources
  * From /users/{id}/access/{resource_id} endpoint
+ *
+ * 🔒 CORE - Required for access control
  */
 export type AccessLevel = "no_access" | "admin" | "customer";
 
 /**
  * Check access response from Whop API
+ *
+ * 🔒 CORE - Required for access control
  */
 export interface CheckAccessResponse {
   /** Whether the user has access to the resource */
@@ -42,20 +53,32 @@ export interface CheckAccessResponse {
 
 /**
  * Resource types that can be checked for access
+ *
+ * 🔒 CORE - Required for access control
  */
 export type WhopResourceType = "company" | "product" | "experience";
 
 /**
  * Whop resource ID formats
+ *
+ * 🔒 CORE - Required for access control
  */
 export type WhopResourceId =
   | `biz_${string}` // Company
   | `prod_${string}` // Product
   | `exp_${string}`; // Experience
 
+// ============================================================================
+// 📝 EXAMPLE TYPES - SAFE TO REMOVE
+// These types are for the authorized users example feature
+// Remove them if you delete the AuthorizedUsersList component
+// ============================================================================
+
 /**
  * Authorized user roles in a company
  * From /authorized_users endpoint
+ *
+ * 📝 EXAMPLE - Safe to remove if not using authorized users feature
  */
 export type AuthorizedUserRole =
   | "owner"
@@ -68,6 +91,8 @@ export type AuthorizedUserRole =
 
 /**
  * User details in authorized users list
+ *
+ * 📝 EXAMPLE - Safe to remove if not using authorized users feature
  */
 export interface AuthorizedUserDetails {
   /** Internal user ID */
@@ -82,6 +107,8 @@ export interface AuthorizedUserDetails {
 
 /**
  * Authorized user object from /authorized_users endpoint
+ *
+ * 📝 EXAMPLE - Safe to remove if not using authorized users feature
  */
 export interface AuthorizedUser {
   /** Authorized user identifier */
@@ -94,6 +121,8 @@ export interface AuthorizedUser {
 
 /**
  * Page info for pagination
+ *
+ * 📝 EXAMPLE - Safe to remove if not using authorized users feature
  */
 export interface PageInfo {
   /** Cursor for next page */
@@ -108,6 +137,8 @@ export interface PageInfo {
 
 /**
  * Response from /authorized_users endpoint
+ *
+ * 📝 EXAMPLE - Safe to remove if not using authorized users feature
  */
 export interface AuthorizedUsersResponse {
   /** List of authorized users */

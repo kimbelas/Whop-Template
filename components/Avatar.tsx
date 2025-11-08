@@ -1,3 +1,12 @@
+/**
+ * 🔒 CORE COMPONENT - DO NOT DELETE
+ *
+ * Reusable avatar component with automatic fallbacks:
+ * Profile picture → Generated avatar → Initials
+ *
+ * This is a core UI component used throughout the app.
+ */
+
 "use client";
 
 import { useState } from "react";

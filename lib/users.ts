@@ -1,3 +1,16 @@
+/**
+ * 📝 EXAMPLE FILE - Safe to delete entire file
+ *
+ * This file demonstrates user management with Supabase.
+ * It's an example feature - remove it when building your own app.
+ *
+ * If you delete this file, also remove:
+ * - components/UsersList.tsx
+ * - supabase/migrations/001_create_users_table.sql
+ * - Imports in app/dashboard/[companyId]/page.tsx
+ * - Imports in app/experiences/[experienceId]/page.tsx (if using)
+ */
+
 import { getSupabaseClient } from "./supabase";
 import { generateAvatarUrl } from "./avatar";
 import type { WhopUser } from "@/types/whop";

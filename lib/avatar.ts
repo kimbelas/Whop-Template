@@ -1,6 +1,9 @@
 /**
  * Avatar utility functions
  * Generates consistent avatars for users using DiceBear API
+ *
+ * 🔒 CORE UTILITY - DO NOT DELETE
+ * Used by Avatar component throughout the app
  */
 
 export type AvatarStyle =
@@ -42,7 +45,7 @@ export function getUserAvatarUrl(
  * Get initials from name or username
  * Used as fallback when avatar images fail to load
  */
-export function getInitials(name: string | null, username: string): string {
+export function getInitials(name: string | null | undefined, username: string): string {
   if (name) {
     const parts = name.trim().split(" ");
     if (parts.length >= 2) {

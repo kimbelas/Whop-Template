@@ -1,3 +1,11 @@
+/**
+ * 🔒 CORE UTILITY - DO NOT DELETE (if using Supabase)
+ *
+ * Supabase database client configuration.
+ * Keep this if you're using Supabase for your app's database.
+ * You can remove this entire file if you're not using Supabase.
+ */
+
 import { createClient } from "@supabase/supabase-js";
 
 /**

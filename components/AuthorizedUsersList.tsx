@@ -1,3 +1,15 @@
+/**
+ * 📝 EXAMPLE COMPONENT - Safe to delete
+ *
+ * This component demonstrates how to display Whop authorized users.
+ * It's an example feature - remove it when building your own app.
+ *
+ * Dependencies to remove if deleting this:
+ * - getAuthorizedUsers/getAllAuthorizedUsers functions in lib/whop.ts
+ * - AuthorizedUser* types in types/whop.ts
+ * - Import in app/dashboard/[companyId]/page.tsx
+ */
+
 import type { AuthorizedUser, AuthorizedUserRole } from "@/types/whop";
 import { Avatar } from "./Avatar";
 

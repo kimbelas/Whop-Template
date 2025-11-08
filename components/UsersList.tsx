@@ -1,3 +1,14 @@
+/**
+ * 📝 EXAMPLE COMPONENT - Safe to delete
+ *
+ * This component demonstrates how to display database users in a table.
+ * It's an example feature - remove it when building your own app.
+ *
+ * Dependencies to remove if deleting this:
+ * - lib/users.ts
+ * - Import in app/dashboard/[companyId]/page.tsx
+ */
+
 import type { DatabaseUser } from "@/lib/users";
 import { Avatar } from "./Avatar";
 

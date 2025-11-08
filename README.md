@@ -2,6 +2,8 @@
 
 A production-ready Next.js template for building Whop apps with full API integration, Whop SDK, iframe support, TypeScript, Tailwind CSS, and Supabase.
 
+> **📝 Note:** This template includes example features (user management) to demonstrate best practices. When building your app, you should remove these examples and add your own features. See [Template Usage](#-template-usage) below.
+
 ## Features
 
 - ✅ **Complete Whop Integration** - Full API with user model, access control, and authentication
@@ -248,6 +250,64 @@ npm run build      # Build for production
 npm run start      # Run production build
 npm run lint       # Run ESLint
 ```
+
+## 📝 Template Usage
+
+This template includes example features to demonstrate best practices. When building your own app:
+
+### What to Keep (Core Template)
+
+**🔒 NEVER REMOVE - Required for Whop integration:**
+- Authentication system (`lib/whop.ts` core functions)
+- Access control (admin/member routing)
+- Avatar system (`lib/avatar.ts`, `components/Avatar.tsx`)
+- Core types (`types/whop.ts` - WhopUser, AccessLevel, etc.)
+- Routing structure (`app/dashboard`, `app/experiences`)
+- Theme components (ThemeToggle, RoleSwitcher)
+
+### What to Remove (Example Features)
+
+**📝 SAFE TO DELETE - Example implementations:**
+- `components/UsersList.tsx` - Database users display
+- `components/AuthorizedUsersList.tsx` - API users display
+- `lib/users.ts` - User management functions
+- `supabase/migrations/001_create_users_table.sql` - Sample database
+- Optional functions in `lib/whop.ts` (getAuthorizedUsers, getAllAuthorizedUsers)
+- Optional types in `types/whop.ts` (AuthorizedUser*, PageInfo)
+
+### Files with Detailed Instructions
+
+Look for these markers in the code:
+- 🔒 **CORE** - Do not remove
+- 📝 **EXAMPLE** - Safe to remove
+
+**Comprehensive Guides:**
+- `TEMPLATE_GUIDE.md` - Detailed removal instructions for developers
+- `CLAUDE.md` - Instructions for AI assistants
+- Code comments throughout mark core vs example code
+
+### Quick Start for Your App
+
+1. **Clone and clean:**
+   ```bash
+   # Remove example features (optional, recommended):
+   rm components/UsersList.tsx
+   rm components/AuthorizedUsersList.tsx
+   rm lib/users.ts
+   rm supabase/migrations/001_create_users_table.sql
+   ```
+
+2. **Clean up imports in dashboard/experience pages**
+   - Remove imports of deleted components
+   - Keep authentication and access control code
+
+3. **Build your features**
+   - Add your components to `components/`
+   - Add your API routes to `app/api/`
+   - Add your database schema to `supabase/migrations/`
+   - Keep using the authentication patterns
+
+**See `TEMPLATE_GUIDE.md` for step-by-step instructions.**
 
 ## Deployment
 

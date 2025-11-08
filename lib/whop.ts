@@ -5,13 +5,19 @@ import type {
   CheckAccessResponse,
   WhopResourceId,
   AccessLevel,
-  AuthorizedUsersResponse,
-  AuthorizedUserRole,
+  AuthorizedUsersResponse, // 📝 EXAMPLE - Safe to remove
+  AuthorizedUserRole, // 📝 EXAMPLE - Safe to remove
 } from "@/types/whop";
+
+// ============================================================================
+// 🔒 CORE TEMPLATE - DO NOT REMOVE ANYTHING IN THIS SECTION
+// ============================================================================
 
 /**
  * Whop SDK Configuration
  * Initialize with environment variables from .env.local
+ *
+ * 🔒 CORE - Required for Whop authentication
  */
 export const whopConfig = {
   apiKey: process.env.WHOP_API_KEY || "",
@@ -24,6 +30,8 @@ export const whopConfig = {
 /**
  * Validate user token from Whop and get user ID
  * This should be called in server components or API routes
+ *
+ * 🔒 CORE - Required for authentication - DO NOT REMOVE
  */
 export async function getWhopUserId() {
   try {
@@ -43,6 +51,8 @@ export async function getWhopUserId() {
 /**
  * Fetch full user details from Whop API
  * GET /users/{id}
+ *
+ * 🔒 CORE - Required for authentication - DO NOT REMOVE
  */
 export async function getWhopUser(userId?: string): Promise<WhopUser | null> {
   try {
@@ -71,6 +81,8 @@ export async function getWhopUser(userId?: string): Promise<WhopUser | null> {
 /**
  * Check if user has access to a specific resource (company, product, or experience)
  * GET /users/{id}/access/{resource_id}
+ *
+ * 🔒 CORE - Required for access control - DO NOT REMOVE
  */
 export async function checkUserAccess(
   resourceId: WhopResourceId,
@@ -106,6 +118,8 @@ export async function checkUserAccess(
 
 /**
  * Check if user is admin of a resource
+ *
+ * 🔒 CORE - Required for access control - DO NOT REMOVE
  */
 export async function isUserAdmin(
   resourceId: WhopResourceId,
@@ -117,6 +131,8 @@ export async function isUserAdmin(
 
 /**
  * Check if user is customer of a resource
+ *
+ * 🔒 CORE - Required for access control - DO NOT REMOVE
  */
 export async function isUserCustomer(
   resourceId: WhopResourceId,
@@ -128,6 +144,8 @@ export async function isUserCustomer(
 
 /**
  * Helper to get current user or throw if not authenticated
+ *
+ * 🔒 CORE - Required for authentication guards - DO NOT REMOVE
  */
 export async function requireWhopUser(): Promise<WhopUser> {
   const user = await getWhopUser();
@@ -141,6 +159,8 @@ export async function requireWhopUser(): Promise<WhopUser> {
 
 /**
  * Helper to require admin access to a resource
+ *
+ * 🔒 CORE - Required for access control - DO NOT REMOVE
  */
 export async function requireAdmin(
   resourceId: WhopResourceId,
@@ -153,10 +173,18 @@ export async function requireAdmin(
   }
 }
 
+// ============================================================================
+// 📝 EXAMPLE FEATURES - SAFE TO REMOVE
+// These functions demonstrate Whop's authorized users API but are not required
+// for basic app functionality. Remove them when building your own features.
+// ============================================================================
+
 /**
  * Fetch all authorized users for a company
  * GET /authorized_users?company_id={companyId}
  * Requires permissions: company:authorized_user:read and member:email:read
+ *
+ * 📝 EXAMPLE - This is an optional feature demonstration - Safe to remove
  */
 export async function getAuthorizedUsers(
   companyId: string,
@@ -204,6 +232,8 @@ export async function getAuthorizedUsers(
 
 /**
  * Fetch all authorized users (handles pagination automatically)
+ *
+ * 📝 EXAMPLE - This is an optional feature demonstration - Safe to remove
  */
 export async function getAllAuthorizedUsers(
   companyId: string,
