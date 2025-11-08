@@ -1,0 +1,34 @@
+import { createClient } from "@supabase/supabase-js";
+
+/**
+ * Supabase Configuration
+ * Initialize with environment variables from .env.local
+ */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+
+/**
+ * Create Supabase client
+ * This can be used in both server and client components
+ */
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+/**
+ * Helper to check if Supabase is properly configured
+ */
+export function isSupabaseConfigured(): boolean {
+  return Boolean(supabaseUrl && supabaseAnonKey);
+}
+
+/**
+ * Get Supabase client with error handling
+ */
+export function getSupabaseClient() {
+  if (!isSupabaseConfigured()) {
+    console.warn(
+      "Supabase is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local file."
+    );
+  }
+
+  return supabase;
+}
