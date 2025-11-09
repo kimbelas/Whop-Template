@@ -13,11 +13,6 @@ export default function RoleSwitcher() {
     experienceId: "test-experience-456",
   });
 
-  // Only show in development (comment out if you want it in production)
-  if (process.env.NODE_ENV === "production") {
-    return null;
-  }
-
   // Determine current role based on pathname
   const currentRole: Role = pathname?.startsWith("/dashboard")
     ? "admin"
