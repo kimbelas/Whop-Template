@@ -9,9 +9,14 @@ export default function RoleSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
   const [testIds, setTestIds] = useState({
-    companyId: "test-company-123",
+    companyId: process.env.NEXT_PUBLIC_WHOP_COMPANY_ID || "test-company-123",
     experienceId: "test-experience-456",
   });
+
+  // Only show in development (comment out if you want it in production)
+  if (process.env.NODE_ENV === "production") {
+    return null;
+  }
 
   // Determine current role based on pathname
   const currentRole: Role = pathname?.startsWith("/dashboard")
